@@ -176,7 +176,7 @@ function OrderScreen({ params }) {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  {shippingAddress.fullName}, {shippingAddress.district},{' '}
+                  {shippingAddress.fullName} {shippingAddress.district},{' '}
                   {shippingAddress.location}, {shippingAddress.village},{' '}
                   {shippingAddress.phoneNumber}
                 </ListItem>
