@@ -169,7 +169,7 @@ function CartScreen() {
                     color="primary"
                     variant="contained"
                   >
-                    Checkout
+                    Pay
                   </Button>
                 </ListItem>
               </List>

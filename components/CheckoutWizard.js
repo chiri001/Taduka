@@ -1,5 +1,5 @@
 import React from 'react';
-import { Step, StepLable, Stepper } from '@mui/material';
+import { StepLabel, Stepper, Step } from '@mui/material';
 
 export default function CheckoutWizard({ activeStep = 0 }) {
   return (
@@ -7,7 +7,7 @@ export default function CheckoutWizard({ activeStep = 0 }) {
       {['Login', 'Shipping Address', 'Payment Method', 'Place Order'].map(
         (step) => (
           <Step key={step}>
-            <StepLable>{step}</StepLable>
+            <StepLabel>{step}</StepLabel>
           </Step>
         )
       )}
