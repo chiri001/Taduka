@@ -1,73 +1,65 @@
 import React, { useContext, useEffect } from 'react';
-
-import { useForm, Controller } from 'react-hook-form';
+import { Store } from '../utils/Store';
+import { Controller, useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import Form from '../components/Form';
-import {
-  TextField,
-  Button,
-  Link,
-  List,
-  ListItem,
-  Typography,
-} from '@mui/material';
-
-import NextLink from 'next/link';
+import { Button, List, ListItem, TextField, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
-import { useRouter } from 'next/router';
-import jsCookie from 'js-cookie';
-import { Store } from '../utils/Store';
 import axios from 'axios';
 import { getError } from '../utils/error';
+import jsCookie from 'js-cookie';
+import dynamic from 'next/dynamic';
 
-export default function RegisterScreen() {
+function ProfileScreen() {
+  const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
-  const router = useRouter();
-
-  const { redirect } = router.query;
-
-  useEffect(() => {
-    if (userInfo) {
-      //user is logged in
-      router.push(redirect || '/');
-    }
-  }, [router, userInfo, redirect]);
-
   const {
     handleSubmit,
     control,
     formState: { errors },
+    setValue,
   } = useForm();
 
-  const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    if (!userInfo) {
+      return router.push('/login');
+    }
+    setValue('name', userInfo.name);
+    setValue('email', userInfo.email);
+  }, [router, setValue, userInfo]);
 
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const submitHandler = async ({ name, email, password, confirmPassword }) => {
+    closeSnackbar();
     if (password !== confirmPassword) {
       enqueueSnackbar("Passwords don't match", { variant: 'error' });
       return;
     }
     try {
-      const { data } = await axios.post('/api/users/register', {
-        name,
-        email,
-        password,
-      });
-
+      const { data } = await axios.put(
+        '/api/users/profile',
+        {
+          name,
+          email,
+          password,
+        },
+        { headers: { authorization: `Bearer ${userInfo.token}` } }
+      );
       dispatch({ type: 'USER_LOGIN', payload: data });
       jsCookie.set('userInfo', JSON.stringify(data));
-      router.push(redirect || '/');
+      enqueueSnackbar('Profile updated successfully', { variant: 'success' });
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
     }
   };
-
   return (
-    <Layout title="Sign up">
+    <Layout title="Profile">
+      <Typography component="h1" variant="h1">
+        Profile
+      </Typography>
       <Form onSubmit={handleSubmit(submitHandler)}>
-        <Typography component="h1" variant="h1">
-          Sign Up
-        </Typography>
         <List>
           <ListItem>
             <Controller
@@ -89,8 +81,8 @@ export default function RegisterScreen() {
                   helperText={
                     errors.name
                       ? errors.name.type === 'minLength'
-                        ? 'Name length should be more than one'
-                        : 'Name is required to set up account'
+                        ? 'Name length is more than 1'
+                        : 'Name is required'
                       : ''
                   }
                   {...field}
@@ -133,22 +125,22 @@ export default function RegisterScreen() {
               control={control}
               defaultValue=""
               rules={{
-                required: true,
-                minLength: 5,
+                validate: (value) =>
+                  value === '' ||
+                  value.length > 4 ||
+                  'Password length should be more than 4',
               }}
               render={({ field }) => (
                 <TextField
                   variant="outlined"
                   fullWidth
                   id="password"
-                  label="Password"
+                  label="password"
                   inputProps={{ type: 'password' }}
                   error={Boolean(errors.password)}
                   helperText={
                     errors.password
-                      ? errors.password.type === 'minLength'
-                        ? 'Password length should be 5 or more'
-                        : 'Password is required'
+                      ? 'Password length should be more than 4'
                       : ''
                   }
                   {...field}
@@ -156,15 +148,16 @@ export default function RegisterScreen() {
               )}
             ></Controller>
           </ListItem>
-
           <ListItem>
             <Controller
               name="confirmPassword"
               control={control}
               defaultValue=""
               rules={{
-                required: true,
-                minLength: 5,
+                validate: (value) =>
+                  value === '' ||
+                  value.length > 4 ||
+                  'confirmPassword length should be more than 4',
               }}
               render={({ field }) => (
                 <TextField
@@ -176,9 +169,7 @@ export default function RegisterScreen() {
                   error={Boolean(errors.confirmPassword)}
                   helperText={
                     errors.confirmPassword
-                      ? errors.confirmPassword.type === 'minLength'
-                        ? 'Confirm Password length should be 5 or more'
-                        : 'Confirm Password is required'
+                      ? 'Confirm Password length should be more than 4'
                       : ''
                   }
                   {...field}
@@ -186,20 +177,15 @@ export default function RegisterScreen() {
               )}
             ></Controller>
           </ListItem>
-
           <ListItem>
-            <Button variant="contained" type="submit" color="primary">
-              Sign Up
+            <Button variant="contained" type="submit" fullWidth color="primary">
+              Update
             </Button>
-          </ListItem>
-          <ListItem>
-            Already have an account?
-            <NextLink href={`/login?redirect=${redirect || '/'}`} passHref>
-              <Link> Login </Link>
-            </NextLink>
           </ListItem>
         </List>
       </Form>
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(ProfileScreen), { ssr: false });

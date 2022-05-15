@@ -7,21 +7,34 @@ import {
   Box,
   Container,
   Link,
+  List,
+  ListItem,
+  ListItemText,
+  InputBase,
+  IconButton,
   Typography,
   Menu,
+  Divider,
+  Drawer,
   MenuItem,
   Toolbar,
   AppBar,
   CssBaseline,
   ThemeProvider,
+  useMediaQuery,
 } from '@mui/material';
 import NextLink from 'next/link';
 import classes from '../utils/classes';
 import { Store } from '../utils/Store';
-import { useContext, useState } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import jsCookie from 'js-cookie';
 import { getError } from '../utils/error';
+import MenuIcon from '@mui/icons-material/Menu';
+import CancelIcon from '@mui/icons-material/Cancel';
+import SearchIcon from '@mui/icons-material/Search';
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 export default function Layout({ title, description, children }) {
   const router = useRouter();
@@ -43,7 +56,7 @@ export default function Layout({ title, description, children }) {
         margin: '1rem 0',
       },
 
-      h1: {
+      h2: {
         fontSize: '1.4rem',
         fontWeight: 400,
         margin: '1rem 0',
@@ -87,27 +100,125 @@ export default function Layout({ title, description, children }) {
     router.push('/');
   };
 
+  const [sidbarVisible, setSidebarVisible] = useState(false);
+  const sidebarOpenHandler = () => {
+    setSidebarVisible(true);
+  };
+  const sidebarCloseHandler = () => {
+    setSidebarVisible(false);
+  };
+  const { enqueueSnackbar } = useSnackbar();
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data } = await axios.get(`/api/products/categories`);
+        setCategories(data);
+      } catch (err) {
+        enqueueSnackbar(getError(err), { variant: 'error' });
+      }
+    };
+    fetchCategories();
+  }, [enqueueSnackbar]);
+
+  const isDesktop = useMediaQuery('(min-width:600px)');
+
+  const [query, setQuery] = useState('');
+  const queryChangeHandler = (e) => {
+    setQuery(e.target.value);
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    router.push(`/search?query=${query}`);
+  };
   return (
     <>
       <Head>
-        {/* check if title and description exist */}
-        <title>{title ? `${title} - Taduka` : 'Taduka'}</title>
+        <title>{title ? `${title} - Sanity Amazona` : 'Sanity Amazona'}</title>
         {description && <meta name="description" content={description}></meta>}
       </Head>
-
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppBar position="static" sx={classes.appbar}>
           <Toolbar sx={classes.toolbar}>
-            <NextLink href="/" passHref>
-              <Link>
-                <Typography sx={classes.brand}> Taduka </Typography>
-              </Link>
-            </NextLink>
+            <Box display="flex" alignItems="center">
+              <IconButton
+                edge="start"
+                aria-label="open drawer"
+                onClick={sidebarOpenHandler}
+                sx={classes.menuButton}
+              >
+                <MenuIcon sx={classes.navbarButton} />
+              </IconButton>
+              <NextLink href="/" passHref>
+                <Link>
+                  <Typography sx={classes.brand}>Taduka</Typography>
+                </Link>
+              </NextLink>
+            </Box>
+            <Drawer
+              anchor="left"
+              open={sidbarVisible}
+              onClose={sidebarCloseHandler}
+            >
+              <List>
+                <ListItem>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Typography>Shopping by category</Typography>
+                    <IconButton
+                      aria-label="close"
+                      onClick={sidebarCloseHandler}
+                    >
+                      <CancelIcon />
+                    </IconButton>
+                  </Box>
+                </ListItem>
+                <Divider light />
+                {categories.map((category) => (
+                  <NextLink
+                    key={category}
+                    href={`/search?category=${category}`}
+                    passHref
+                  >
+                    <ListItem
+                      button
+                      component="a"
+                      onClick={sidebarCloseHandler}
+                    >
+                      <ListItemText primary={category}></ListItemText>
+                    </ListItem>
+                  </NextLink>
+                ))}
+              </List>
+            </Drawer>
+            <Box sx={isDesktop ? classes.visible : classes.hidden}>
+              <form onSubmit={submitHandler}>
+                <Box sx={classes.searchForm} halfWidth>
+                  <InputBase
+                    name="query"
+                    sx={classes.searchInput}
+                    placeholder="Search products"
+                    onChange={queryChangeHandler}
+                  />
+                  <IconButton
+                    type="submit"
+                    sx={classes.searchButton}
+                    aria-label="search"
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </Box>
+              </form>
+            </Box>
+
             <Box>
               <NextLink href="/cart" passHref>
                 <Link>
-                  <Typography component={'span'}>
+                  <Typography component="span">
                     {cart.cartItems.length > 0 ? (
                       <Badge
                         color="secondary"
@@ -144,11 +255,12 @@ export default function Layout({ title, description, children }) {
                       Profile
                     </MenuItem>
                     <MenuItem
-                      onClick={(e) => loginMenuCloseHandler(e, '/orderHistory')}
+                      onClick={(e) =>
+                        loginMenuCloseHandler(e, '/order-history')
+                      }
                     >
                       Order History
                     </MenuItem>
-
                     <MenuItem onClick={logOutClickHandler}>Logout</MenuItem>
                   </Menu>
                 </>
@@ -164,7 +276,7 @@ export default function Layout({ title, description, children }) {
           {children}
         </Container>
         <Box component="footer" sx={classes.footer}>
-          <Typography> @copyright Taduka 2022. All rights reserved </Typography>
+          <Typography>@Taduka 2022. All rights reserved</Typography>
         </Box>
       </ThemeProvider>
     </>

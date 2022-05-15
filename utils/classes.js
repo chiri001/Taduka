@@ -35,10 +35,39 @@ const classes = {
 
   navbarButton: {
     color: '#ffffff',
-    texttTransform: 'initial',
+    textTransform: 'initial',
   },
   fullWidth: {
     width: '100%',
+  },
+  halfWidth: {
+    width: '50%',
+  },
+  visible: {
+    display: 'intial',
+  },
+  hidden: {
+    display: 'none',
+  },
+  searchForm: {
+    border: '1px solid #ffffff',
+    backgroundColor: '#ffffff',
+    borderRadius: 1,
+  },
+  searchInput: {
+    paddingLeft: 1,
+    color: '#000000',
+    '& ::placeholder': {
+      color: '#606060',
+    },
+  },
+  searchButton: {
+    backgroundColor: '#4b0096',
+    padding: 1,
+    borderRadius: '0 5px 5px 0',
+    '& span': {
+      color: '#00000',
+    },
   },
 };
 
