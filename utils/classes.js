@@ -24,7 +24,6 @@ const classes = {
       marginLeft: 1,
     },
   },
-
   toolbar: {
     justifyContent: 'space-between',
   },
