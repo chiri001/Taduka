@@ -27,6 +27,8 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import { ImCart } from 'react-icons/im';
+import { MdDeleteForever } from 'react-icons/md';
 
 function CartScreen() {
   const router = useRouter();
@@ -75,6 +77,7 @@ function CartScreen() {
       </Typography>
       {cartItems.length === 0 ? (
         <Box>
+          <ImCart size={70} />
           <Typography>
             Your Cart is Empty.
             <NextLink href="/" passHref>
@@ -141,7 +144,7 @@ function CartScreen() {
                           color="secondary"
                           onClick={() => removeItemHandler(item)}
                         >
-                          x
+                          <MdDeleteForever size={20} color={'#a30f20'} />
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -149,6 +152,16 @@ function CartScreen() {
                 </TableBody>
               </Table>
             </TableContainer>
+            <Button
+              onClick={() => {
+                router.push('/');
+              }}
+              color="primary"
+              variant="contained"
+              margineTop={2}
+            >
+              Continue shopping
+            </Button>
           </Grid>
           <Grid item md={3} xs={12}>
             <Card>

@@ -109,9 +109,8 @@ function PlaceOrderScreen() {
                 </Typography>
               </ListItem>
               <ListItem>
-                {shippingAddress.fullName} {shippingAddress.district},{' '}
-                {shippingAddress.location}, {shippingAddress.village},{' '}
-                {shippingAddress.phoneNumber}
+                {shippingAddress.fullName} {shippingAddress.area},{' '}
+                {shippingAddress.estate},{shippingAddress.phoneNumber}
               </ListItem>
               <ListItem>
                 <Button

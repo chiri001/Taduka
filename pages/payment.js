@@ -30,7 +30,7 @@ export default function PaymentScreen() {
   } = state;
 
   useEffect(() => {
-    if (!shippingAddress.village) {
+    if (!shippingAddress.estate) {
       router.push('/shipping');
     } else {
       setPaymentMethod(jsCookie.get('paymentMethod') || '');

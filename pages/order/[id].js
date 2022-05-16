@@ -176,9 +176,8 @@ function OrderScreen({ params }) {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  {shippingAddress.fullName} {shippingAddress.district},{' '}
-                  {shippingAddress.location}, {shippingAddress.village},{' '}
-                  {shippingAddress.phoneNumber}
+                  {shippingAddress.fullName} {shippingAddress.area},{' '}
+                  {shippingAddress.estate},{shippingAddress.phoneNumber}
                 </ListItem>
                 <ListItem>
                   Status:{' '}
@@ -247,7 +246,7 @@ function OrderScreen({ params }) {
                               <Typography>{item.quantity}</Typography>
                             </TableCell>
                             <TableCell align="right">
-                              <Typography>${item.price}</Typography>
+                              <Typography>Ksh.{item.price}</Typography>
                             </TableCell>
                           </TableRow>
                         ))}
@@ -270,17 +269,7 @@ function OrderScreen({ params }) {
                       <Typography>Items:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">${itemsPrice}</Typography>
-                    </Grid>
-                  </Grid>
-                </ListItem>
-                <ListItem>
-                  <Grid container>
-                    <Grid item xs={6}>
-                      <Typography>Tax:</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography align="right">${taxPrice}</Typography>
+                      <Typography align="right">Ksh.{itemsPrice}</Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -290,7 +279,7 @@ function OrderScreen({ params }) {
                       <Typography>Shipping:</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography align="right">${shippingPrice}</Typography>
+                      <Typography align="right">Ksh.{shippingPrice}</Typography>
                     </Grid>
                   </Grid>
                 </ListItem>
@@ -303,7 +292,7 @@ function OrderScreen({ params }) {
                     </Grid>
                     <Grid item xs={6}>
                       <Typography align="right">
-                        <strong>${totalPrice}</strong>
+                        <strong>Ksh.{totalPrice}</strong>
                       </Typography>
                     </Grid>
                   </Grid>
@@ -313,12 +302,12 @@ function OrderScreen({ params }) {
                     {isPending ? (
                       <CircularProgress />
                     ) : (
-                      <Box sx={classes.fullWidth}>
-                        <PayPalButtons
-                          createOrder={createOrder}
-                          onApprove={onApprove}
-                          onError={onError}
-                        ></PayPalButtons>
+                      <Box>
+                        <Typography>Mpesa Till Number: 2245</Typography>
+                        <Typography marginTop={1}>
+                          (Open phone mpesa and enter till to pay. Once
+                          confirmed staus should read paid)
+                        </Typography>
                       </Box>
                     )}
                   </ListItem>

@@ -9,18 +9,13 @@ export default {
       type: 'string',
     },
     {
-      title: 'district',
-      name: 'district',
+      title: 'area',
+      name: 'area',
       type: 'string',
     },
     {
-      title: 'location',
-      name: 'location',
-      type: 'string',
-    },
-    {
-      title: 'village',
-      name: 'village',
+      title: 'estate',
+      name: 'estate',
       type: 'string',
     },
     {

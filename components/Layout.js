@@ -35,6 +35,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import { ImCart } from 'react-icons/im';
 
 export default function Layout({ title, description, children }) {
   const router = useRouter();
@@ -71,7 +72,10 @@ export default function Layout({ title, description, children }) {
         main: '#00963a',
       },
       tertiary: {
-        main: '#d1b1e3',
+        main: '#ffffff',
+      },
+      delete: {
+        main: '#f20521',
       },
     },
   });
@@ -221,13 +225,13 @@ export default function Layout({ title, description, children }) {
                   <Typography component="span">
                     {cart.cartItems.length > 0 ? (
                       <Badge
-                        color="secondary"
+                        color="tertiary"
                         badgeContent={cart.cartItems.length}
                       >
-                        Cart
+                        <ImCart size={20} />
                       </Badge>
                     ) : (
-                      'Cart'
+                      <ImCart size={20} />
                     )}
                   </Typography>
                 </Link>
@@ -239,6 +243,7 @@ export default function Layout({ title, description, children }) {
                     aria-haspopup="true"
                     sx={classes.navbarButton}
                     onClick={loginClickHandler}
+                    variant="h2"
                   >
                     {userInfo.name}
                   </Button>
@@ -255,9 +260,7 @@ export default function Layout({ title, description, children }) {
                       Profile
                     </MenuItem>
                     <MenuItem
-                      onClick={(e) =>
-                        loginMenuCloseHandler(e, '/order-history')
-                      }
+                      onClick={(e) => loginMenuCloseHandler(e, '/orderHistory')}
                     >
                       Order History
                     </MenuItem>

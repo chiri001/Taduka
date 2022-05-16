@@ -23,7 +23,6 @@ export default function ShippingScreen() {
     formState: { errors },
     setValue,
   } = useForm();
-
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const {
@@ -37,43 +36,38 @@ export default function ShippingScreen() {
     }
 
     setValue('fullName', shippingAddress.fullName);
-    setValue('district', shippingAddress.district);
-    setValue('location', shippingAddress.location);
-    setValue('village', shippingAddress.village);
+    setValue('area', shippingAddress.area);
+    setValue('estate', shippingAddress.estate);
     setValue('phoneNumber', shippingAddress.phoneNumber);
   }, [router, setValue, shippingAddress, userInfo]);
 
-  const submitHandler = ({
-    fullName,
-    district,
-    location,
-    village,
-    phoneNumber,
-  }) => {
+  const submitHandler = ({ fullName, area, estate, phoneNumber }) => {
     dispatch({
       type: 'SAVE_SHIPPING_ADDRESS',
-      payload: { fullName, district, location, village, phoneNumber },
+      payload: { fullName, area, estate, phoneNumber },
     });
-
     jsCookie.set(
       'shippingAddress',
-      JSON.stringify({ fullName, district, location, village, phoneNumber })
+      JSON.stringify({
+        fullName,
+        area,
+        estate,
+        phoneNumber,
+      })
     );
-
     router.push('/payment');
   };
-
   return (
-    <Layout title="shipping Address">
+    <Layout title="Shipping Address">
       <CheckoutWizard activeStep={1}></CheckoutWizard>
       <Form onSubmit={handleSubmit(submitHandler)}>
-        <Typography components="h1" variant="h1">
+        <Typography component="h1" variant="h1">
           Shipping Address
         </Typography>
         <List>
           <ListItem>
             <Controller
-              name="FullName"
+              name="fullName"
               control={control}
               defaultValue=""
               rules={{
@@ -86,12 +80,12 @@ export default function ShippingScreen() {
                   fullWidth
                   id="fullName"
                   label="Full Name"
-                  inputProps={{ type: 'FullName' }}
+                  inputProps={{ type: 'fullName' }}
                   error={Boolean(errors.fullName)}
                   helperText={
                     errors.fullName
                       ? errors.fullName.type === 'minLength'
-                        ? 'Full Name length should be more than one'
+                        ? 'Full Name length is more than 1'
                         : 'Full Name is required'
                       : ''
                   }
@@ -102,7 +96,7 @@ export default function ShippingScreen() {
           </ListItem>
           <ListItem>
             <Controller
-              name="district"
+              name="area"
               control={control}
               defaultValue=""
               rules={{
@@ -113,15 +107,15 @@ export default function ShippingScreen() {
                 <TextField
                   variant="outlined"
                   fullWidth
-                  id="district"
-                  label="District"
-                  inputProps={{ type: 'district' }}
-                  error={Boolean(errors.district)}
+                  id="area"
+                  label="Area i.e South B"
+                  inputProps={{ type: 'area' }}
+                  error={Boolean(errors.area)}
                   helperText={
-                    errors.district
-                      ? errors.district.type === 'minLength'
-                        ? 'District length should be more than one'
-                        : 'District is required'
+                    errors.area
+                      ? errors.area.type === 'minLength'
+                        ? 'Area length is more than 1'
+                        : 'Area is required'
                       : ''
                   }
                   {...field}
@@ -131,7 +125,7 @@ export default function ShippingScreen() {
           </ListItem>
           <ListItem>
             <Controller
-              name="location"
+              name="estate"
               control={control}
               defaultValue=""
               rules={{
@@ -142,44 +136,15 @@ export default function ShippingScreen() {
                 <TextField
                   variant="outlined"
                   fullWidth
-                  id="location"
-                  label="Location"
-                  inputProps={{ type: 'location' }}
-                  error={Boolean(errors.location)}
+                  id="estate"
+                  label="Estate and house number if applicable"
+                  inputProps={{ type: 'estate' }}
+                  error={Boolean(errors.estate)}
                   helperText={
-                    errors.location
+                    errors.estate
                       ? errors.location.type === 'minLength'
-                        ? 'Location length should be more than one'
-                        : 'Location is required'
-                      : ''
-                  }
-                  {...field}
-                ></TextField>
-              )}
-            ></Controller>
-          </ListItem>
-          <ListItem>
-            <Controller
-              name="village"
-              control={control}
-              defaultValue=""
-              rules={{
-                required: true,
-                minLength: 2,
-              }}
-              render={({ field }) => (
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  id="village"
-                  label="Village"
-                  inputProps={{ type: 'village' }}
-                  error={Boolean(errors.village)}
-                  helperText={
-                    errors.village
-                      ? errors.village.type === 'minLength'
-                        ? 'Village length should be more than one'
-                        : 'Village is required'
+                        ? 'Estate length is more than 1'
+                        : 'Estate is required'
                       : ''
                   }
                   {...field}
@@ -207,7 +172,7 @@ export default function ShippingScreen() {
                   helperText={
                     errors.phoneNumber
                       ? errors.phoneNumber.type === 'minLength'
-                        ? 'Phone Number length should be more than 9'
+                        ? 'Phone Number length is more than 9'
                         : 'Phone Number is required'
                       : ''
                   }
