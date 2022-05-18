@@ -69,16 +69,6 @@ export default function PaymentScreen() {
                   value="mpesa"
                   control={<Radio />}
                 ></FormControlLabel>
-                <FormControlLabel
-                  label="Paypal"
-                  value="Paypal"
-                  control={<Radio />}
-                ></FormControlLabel>
-                <FormControlLabel
-                  label="Stripe"
-                  value="Stripe"
-                  control={<Radio />}
-                ></FormControlLabel>
               </RadioGroup>
             </FormControl>
           </ListItem>

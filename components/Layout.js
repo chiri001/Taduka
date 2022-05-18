@@ -138,7 +138,7 @@ export default function Layout({ title, description, children }) {
   return (
     <>
       <Head>
-        <title>{title ? `${title} - Sanity Amazona` : 'Sanity Amazona'}</title>
+        <title>{title ? `${title} - Sanity Taduka` : 'Sanity Taduka'}</title>
         {description && <meta name="description" content={description}></meta>}
       </Head>
       <ThemeProvider theme={theme}>

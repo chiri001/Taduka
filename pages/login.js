@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useForm, Controller } from 'react-hook-form';
 import Layout from '../components/Layout';
 import Form from '../components/Form';
@@ -15,24 +14,21 @@ import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import { Store } from '../utils/Store';
 import NextLink from 'next/link';
-import jsCookie from 'js-cookie';
 import { useContext, useEffect } from 'react';
 import axios from 'axios';
+import jsCookie from 'js-cookie';
+import { getError } from '../utils/error';
 
 export default function LoginScreen() {
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
   const router = useRouter();
-
   const { redirect } = router.query;
-
   useEffect(() => {
     if (userInfo) {
-      //user is logged in
       router.push(redirect || '/');
     }
   }, [router, userInfo, redirect]);
-
   const {
     handleSubmit,
     control,
@@ -40,22 +36,19 @@ export default function LoginScreen() {
   } = useForm();
 
   const { enqueueSnackbar } = useSnackbar();
-
   const submitHandler = async ({ email, password }) => {
     try {
       const { data } = await axios.post('/api/users/login', {
         email,
         password,
       });
-
       dispatch({ type: 'USER_LOGIN', payload: data });
       jsCookie.set('userInfo', JSON.stringify(data));
       router.push(redirect || '/');
     } catch (err) {
-      enqueueSnackbar(err.message, { variant: 'error' });
+      enqueueSnackbar(getError(err), { variant: 'error' });
     }
   };
-
   return (
     <Layout title="Login">
       <Form onSubmit={handleSubmit(submitHandler)}>
@@ -122,14 +115,14 @@ export default function LoginScreen() {
             ></Controller>
           </ListItem>
           <ListItem>
-            <Button variant="contained" type="submit" color="primary">
+            <Button variant="contained" type="submit" fullWidth color="primary">
               Login
             </Button>
           </ListItem>
           <ListItem>
-            Do not have an account?
+            Do not have an account?{' '}
             <NextLink href={`/register?redirect=${redirect || '/'}`} passHref>
-              <Link> Sign Up Now</Link>
+              <Link>Sign up</Link>
             </NextLink>
           </ListItem>
         </List>

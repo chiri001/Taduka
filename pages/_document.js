@@ -33,15 +33,16 @@ MyDocument.getInitialProps = async (ctx) => {
       // eslint-disable-next-line react/display-name
       enhanceApp: (App) => (props) => <App emotionCache={cache} {...props} />,
     });
+
   const initialProps = await Document.getInitialProps(ctx);
   const emotionStyles = extractCriticalToChunks(initialProps.html);
 
   //converst all styles to an object
   const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
-      //regular html style
       data-emotion={`${style.key} ${style.ids.join(' ')}`}
       key={style.key}
+      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: style.css }}
     />
   ));

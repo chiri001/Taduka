@@ -21,6 +21,7 @@ import classes from '../utils/classes';
 import client from '../utils/client';
 import { urlForThumbnail } from '../utils/image';
 import { Store } from '../utils/Store';
+import { FiDelete } from 'react-icons/fi';
 
 export default function SearchScreen() {
   const router = useRouter();
@@ -147,13 +148,20 @@ export default function SearchScreen() {
           </List>
         </Grid>
         <Grid item md={9}>
-          <Grid container justifyContent="space-between" alignItems="center">
+          <Grid
+            container
+            justifyContent="space-between"
+            alignItems="center"
+            marginBottom={5}
+          >
             <Grid item>
               {products && products.length !== 0 ? products.length : 'No'}{' '}
               Results
               {query !== 'all' && query !== '' && ' : ' + query}
               {query !== 'all' && query !== '' ? (
-                <Button onClick={() => router.push('/search')}>X</Button>
+                <Button onClick={() => router.push('/search')}>
+                  <FiDelete size={20} color={'#a30f20'} />
+                </Button>
               ) : null}
             </Grid>
           </Grid>

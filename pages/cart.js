@@ -32,7 +32,6 @@ import { MdDeleteForever } from 'react-icons/md';
 
 function CartScreen() {
   const router = useRouter();
-
   const {
     state: {
       cart: { cartItems },
@@ -44,9 +43,8 @@ function CartScreen() {
 
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
-
     if (data.countInStock < quantity) {
-      enqueueSnackbar('sorry, product is out of stock', { variant: 'error' });
+      enqueueSnackbar('Sorry. Product is out of stock', { variant: 'error' });
       return;
     }
     dispatch({
@@ -61,11 +59,10 @@ function CartScreen() {
         quantity,
       },
     });
-    enqueueSnackbar(`Quantity of  ${item.name} has been updated in cart`, {
+    enqueueSnackbar(`${item.name} updated in the cart`, {
       variant: 'success',
     });
   };
-
   const removeItemHandler = (item) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };

@@ -21,7 +21,7 @@ function MyApp({
       >
         <StoreProvider>
           <PayPalScriptProvider deferLoading={true}>
-            <Component {...pageProps} />;
+            <Component {...pageProps} />
           </PayPalScriptProvider>
         </StoreProvider>
       </SnackbarProvider>

@@ -306,7 +306,7 @@ function OrderScreen({ params }) {
                         <Typography>Mpesa Till Number: 2245</Typography>
                         <Typography marginTop={1}>
                           (Open phone mpesa and enter till to pay. Once
-                          confirmed staus should read paid)
+                          confirmed, staus should read paid after a few minutes)
                         </Typography>
                       </Box>
                     )}

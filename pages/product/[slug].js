@@ -36,15 +36,13 @@ export default function ProductScreen(props) {
     loading: true,
     error: '',
   });
-
   const { product, loading, error } = state;
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const product = await client.fetch(
           `
-                *[_type == "product" && slug.current == $slug][0]`,
+            *[_type == "product" && slug.current == $slug][0]`,
           { slug }
         );
         setState({ ...state, product, loading: false });
@@ -59,9 +57,8 @@ export default function ProductScreen(props) {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${product._id}`);
-
     if (data.countInStock < quantity) {
-      enqueueSnackbar('sorry, product is out of stock', { variant: 'error' });
+      enqueueSnackbar('Sorry. Product is out of stock', { variant: 'error' });
       return;
     }
     dispatch({
@@ -79,7 +76,6 @@ export default function ProductScreen(props) {
     enqueueSnackbar(`${product.name} added to the cart`, {
       variant: 'success',
     });
-
     router.push('/cart');
   };
 
