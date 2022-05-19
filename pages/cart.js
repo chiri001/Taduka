@@ -59,7 +59,7 @@ function CartScreen() {
         quantity,
       },
     });
-    enqueueSnackbar(`${item.name} updated in the cart`, {
+    enqueueSnackbar(`Quantity of ${item.name} updated in the cart`, {
       variant: 'success',
     });
   };

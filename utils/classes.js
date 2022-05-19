@@ -11,7 +11,7 @@ const classes = {
   },
 
   main: {
-    marginTop: 2,
+    margintop: 2,
     minHeight: '80vh',
   },
   footer: {

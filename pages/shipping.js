@@ -36,9 +36,10 @@ export default function ShippingScreen() {
     }
 
     setValue('fullName', shippingAddress.fullName);
-    setValue('area', shippingAddress.area);
-    setValue('estate', shippingAddress.estate);
-    setValue('phoneNumber', shippingAddress.phoneNumber);
+    setValue('address', shippingAddress.address);
+    setValue('city', shippingAddress.city);
+    setValue('postalCode', shippingAddress.postalCode);
+    setValue('country', shippingAddress.country);
   }, [router, setValue, shippingAddress, userInfo]);
 
   const submitHandler = ({ fullName, area, estate, phoneNumber }) => {
