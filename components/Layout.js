@@ -39,6 +39,8 @@ import { useSnackbar } from 'notistack';
 import { ImCart } from 'react-icons/im';
 import { RiFacebookCircleFill } from 'react-icons/ri';
 import { RiInstagramFill } from 'react-icons/ri';
+import { FiUserCheck } from 'react-icons/fi';
+import { RiUserShared2Line } from 'react-icons/ri';
 
 export default function Layout({ title, description, children }) {
   const router = useRouter();
@@ -251,9 +253,8 @@ export default function Layout({ title, description, children }) {
                     aria-haspopup="true"
                     sx={classes.navbarButton}
                     onClick={loginClickHandler}
-                    variant="h2"
                   >
-                    {userInfo.name}
+                    <FiUserCheck size={25} color="#4b0096" />
                   </Button>
                   <Menu
                     id="simple-menu"
@@ -276,9 +277,30 @@ export default function Layout({ title, description, children }) {
                   </Menu>
                 </>
               ) : (
-                <NextLink href="/login" passHref>
-                  <Link>Login</Link>
-                </NextLink>
+                <>
+                  <Button
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    sx={classes.navbarButton}
+                    onClick={loginClickHandler}
+                    variant="h2"
+                  >
+                    <RiUserShared2Line size={25} color="#4b0096" />
+                  </Button>
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={loginMenuCloseHandler}
+                  >
+                    <MenuItem
+                      onClick={(e) => loginMenuCloseHandler(e, '/login')}
+                    >
+                      Login
+                    </MenuItem>
+                  </Menu>
+                </>
               )}
             </Box>
           </Toolbar>
