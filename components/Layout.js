@@ -237,7 +237,7 @@ export default function Layout({ title, description, children }) {
                         <ImCart />
                       </Badge>
                     ) : (
-                      <ImCart />
+                      <ImCart size={20} />
                     )}
                   </Typography>
                 </Link>
@@ -250,7 +250,7 @@ export default function Layout({ title, description, children }) {
                     sx={classes.navbarButton}
                     onClick={loginClickHandler}
                   >
-                    <FiUserCheck color="#4b0096" />
+                    <FiUserCheck size={25} color="#4b0096" />
                   </Button>
                   <Menu
                     id="simple-menu"
@@ -281,7 +281,7 @@ export default function Layout({ title, description, children }) {
                     onClick={loginClickHandler}
                     variant="h2"
                   >
-                    <RiUserShared2Line color="#4b0096" />
+                    <RiUserShared2Line size={25} color="#4b0096" />
                   </Button>
                   <Menu
                     id="simple-menu"
