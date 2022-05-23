@@ -219,7 +219,9 @@ export default function Layout({ title, description, children }) {
                   placeholder="Search"
                   onChange={queryChangeHandler}
                 />
-                <IconButton type="submit" aria-label="search"></IconButton>
+                <IconButton type="submit" aria-label="search">
+                  <SearchIcon />
+                </IconButton>
               </Box>
             </form>
 
@@ -232,10 +234,10 @@ export default function Layout({ title, description, children }) {
                         color="tertiary"
                         badgeContent={cart.cartItems.length}
                       >
-                        <ImCart size={20} />
+                        <ImCart />
                       </Badge>
                     ) : (
-                      <ImCart size={20} />
+                      <ImCart />
                     )}
                   </Typography>
                 </Link>
@@ -248,7 +250,7 @@ export default function Layout({ title, description, children }) {
                     sx={classes.navbarButton}
                     onClick={loginClickHandler}
                   >
-                    <FiUserCheck size={25} color="#4b0096" />
+                    <FiUserCheck color="#4b0096" />
                   </Button>
                   <Menu
                     id="simple-menu"
@@ -279,7 +281,7 @@ export default function Layout({ title, description, children }) {
                     onClick={loginClickHandler}
                     variant="h2"
                   >
-                    <RiUserShared2Line size={25} color="#4b0096" />
+                    <RiUserShared2Line color="#4b0096" />
                   </Button>
                   <Menu
                     id="simple-menu"

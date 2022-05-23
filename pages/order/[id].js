@@ -27,6 +27,8 @@ import { useRouter } from 'next/router';
 import { getError } from '../../utils/error';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import { RiCellphoneLine } from 'react-icons/ri';
+import { BsCircle } from 'react-icons/bs';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -261,7 +263,11 @@ function OrderScreen({ params }) {
             <Card sx={classes.section}>
               <List>
                 <ListItem>
-                  <Typography variant="h1">Order Summary</Typography>
+                  <Typography variant="h1" color="primary">
+                    Lipa na M
+                    <RiCellphoneLine size={30} color="#DC143C" />
+                    Pesa
+                  </Typography>
                 </ListItem>
                 <ListItem>
                   <Grid container>
@@ -303,10 +309,26 @@ function OrderScreen({ params }) {
                       <CircularProgress />
                     ) : (
                       <Box>
-                        <Typography>Mpesa Till Number: 2245</Typography>
-                        <Typography marginTop={1}>
-                          (Open phone mpesa and enter till to pay. Once
-                          confirmed, staus should read paid after a few minutes)
+                        <Typography color="#DC143C">
+                          Mpesa Till Number:
+                          <Typography color="primary" allign="right">
+                            2245
+                          </Typography>
+                        </Typography>
+                        <Typography marginTop={1} color="#DC143C">
+                          Steps:
+                        </Typography>
+                        <Typography>1. Open mpesa on your phone</Typography>
+                        <Typography>
+                          2. Go to Lipa na Mpesa, enter Till number
+                        </Typography>
+                        <Typography>3. Pay amount shown above</Typography>
+                        <Typography>
+                          4. Give us 5 minutes to process your payment
+                        </Typography>
+                        <Typography>
+                          5. Check order history to confirm if payment is
+                          succesfull
                         </Typography>
                       </Box>
                     )}
