@@ -147,7 +147,7 @@ export default function Layout({ title, description, children }) {
   return (
     <>
       <Head>
-        <title>{title ? `${title} - Sanity Taduka` : 'Sanity Taduka'}</title>
+        <title>{title ? `${title} - Taduka` : 'Taduka'}</title>
         {description && <meta name="description" content={description}></meta>}
       </Head>
       <ThemeProvider theme={theme}>
@@ -209,25 +209,23 @@ export default function Layout({ title, description, children }) {
               </List>
             </Drawer>
 
-            <Box sx={isDesktop ? classes.visible : classes.hidden}>
-              <form onSubmit={submitHandler}>
-                <Box sx={classes.searchForm}>
-                  <InputBase
-                    name="query"
-                    sx={classes.searchInput}
-                    placeholder="Search products"
-                    onChange={queryChangeHandler}
-                  />
-                  <IconButton
-                    type="submit"
-                    sx={classes.searchButton}
-                    aria-label="search"
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </Box>
-              </form>
-            </Box>
+            <form onSubmit={submitHandler}>
+              <Box sx={classes.searchForm}>
+                <InputBase
+                  name="query"
+                  sx={classes.searchInput}
+                  placeholder="Search products"
+                  onChange={queryChangeHandler}
+                />
+                <IconButton
+                  type="submit"
+                  sx={classes.searchButton}
+                  aria-label="search"
+                >
+                  <SearchIcon />
+                </IconButton>
+              </Box>
+            </form>
 
             <Box>
               <NextLink href="/cart" passHref>
