@@ -11,11 +11,14 @@ const classes = {
   },
 
   main: {
-    margintop: 2,
+    marginTop: 5,
+    marginBottom: 5,
     minHeight: '80vh',
+    marginLeft: 3,
+    marginRight: 5,
   },
   footer: {
-    margineTop: 1,
+    marginetop: 1,
     textAlign: 'center',
   },
   appbar: {
@@ -27,11 +30,6 @@ const classes = {
   toolbar: {
     justifyContent: 'space-between',
   },
-  brand: {
-    fontWeight: 'hold',
-    fontSize: '1.5rem',
-  },
-
   navbarButton: {
     color: '#ffffff',
     textTransform: 'initial',
@@ -39,11 +37,8 @@ const classes = {
   fullWidth: {
     width: '100%',
   },
-  halfWidth: {
-    width: '50%',
-  },
   visible: {
-    display: 'intial',
+    display: 'initial',
   },
   hidden: {
     display: 'none',
