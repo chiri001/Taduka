@@ -216,16 +216,10 @@ export default function Layout({ title, description, children }) {
                 <InputBase
                   name="query"
                   sx={classes.searchInput}
-                  placeholder="Search products"
+                  placeholder="Search"
                   onChange={queryChangeHandler}
                 />
-                <IconButton
-                  type="submit"
-                  sx={classes.searchButton}
-                  aria-label="search"
-                >
-                  <SearchIcon />
-                </IconButton>
+                <IconButton type="submit" aria-label="search"></IconButton>
               </Box>
             </form>
 
