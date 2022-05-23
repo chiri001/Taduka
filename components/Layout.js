@@ -21,6 +21,7 @@ import {
   AppBar,
   CssBaseline,
   ThemeProvider,
+  TableCell,
   useMediaQuery,
 } from '@mui/material';
 import NextLink from 'next/link';
@@ -36,6 +37,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { ImCart } from 'react-icons/im';
+import { RiFacebookCircleFill } from 'react-icons/ri';
+import { RiInstagramFill } from 'react-icons/ri';
 
 export default function Layout({ title, description, children }) {
   const router = useRouter();
@@ -59,6 +62,12 @@ export default function Layout({ title, description, children }) {
 
       h2: {
         fontSize: '1.4rem',
+        fontWeight: 400,
+        margin: '1rem 0',
+      },
+
+      h3: {
+        fontSize: '1.2rem',
         fontWeight: 400,
         margin: '1rem 0',
       },
@@ -138,7 +147,7 @@ export default function Layout({ title, description, children }) {
   return (
     <>
       <Head>
-        <title>{title ? `${title} - Sanity Taduka` : 'Sanity Taduka'}</title>
+        <title>{title ? `${title} - Taduka` : 'Taduka'}</title>
         {description && <meta name="description" content={description}></meta>}
       </Head>
       <ThemeProvider theme={theme}>
@@ -201,7 +210,7 @@ export default function Layout({ title, description, children }) {
             </Drawer>
             <Box sx={isDesktop ? classes.visible : classes.hidden}>
               <form onSubmit={submitHandler}>
-                <Box sx={classes.searchForm} halfWidth>
+                <Box sx={classes.searchForm}>
                   <InputBase
                     name="query"
                     sx={classes.searchInput}
@@ -278,8 +287,51 @@ export default function Layout({ title, description, children }) {
         <Container component="main" sx={classes.main}>
           {children}
         </Container>
+        <Box backgroundColor="#D3D3D3">
+          <TableCell marginleft={3} marginright={3}>
+            <Typography variant="h3">
+              Taduka is an online ecommerce shop that allows users to order
+              groceries from the comfort of their homes and offers free shipping
+              to their doorstep. The products we have include categories such as
+              meat, dairy products, spices, and vegetables. We give you a
+              variety to choose from. You no longer have to go to the market and
+              struggle finding grocery to buy let a lone having the budden to
+              carry those items. Taduka is here for you. Order today and enjoy
+              our services
+            </Typography>
+          </TableCell>
+        </Box>
         <Box component="footer" sx={classes.footer}>
-          <Typography>@Taduka 2022. All rights reserved</Typography>
+          <Button
+            fullWidth
+            color="primary"
+            onClick={() => {
+              router.push('/');
+            }}
+          >
+            Back to top
+          </Button>
+          <Typography variant="h3">
+            @Taduka 2022. All rights reserved
+          </Typography>
+          <Button>
+            <RiInstagramFill
+              color="#833AB4"
+              onClick={() => {
+                router.push('/');
+              }}
+              size={30}
+            />
+          </Button>
+          <Button>
+            <RiFacebookCircleFill
+              color="#4267B2"
+              onClick={() => {
+                router.push('/');
+              }}
+              size={30}
+            />
+          </Button>
         </Box>
       </ThemeProvider>
     </>
