@@ -211,19 +211,25 @@ export default function Layout({ title, description, children }) {
               </List>
             </Drawer>
 
-            <form onSubmit={submitHandler}>
-              <Box sx={classes.searchForm}>
-                <InputBase
-                  name="query"
-                  sx={classes.searchInput}
-                  placeholder="Search"
-                  onChange={queryChangeHandler}
-                />
-                <IconButton type="submit" aria-label="search">
-                  <SearchIcon />
-                </IconButton>
-              </Box>
-            </form>
+            <Box sx={isDesktop ? classes.visible : classes.hidden}>
+              <form onSubmit={submitHandler}>
+                <Box sx={classes.searchForm}>
+                  <InputBase
+                    name="query"
+                    sx={classes.searchInput}
+                    placeholder="Search"
+                    onChange={queryChangeHandler}
+                  />
+                  <IconButton
+                    type="submit"
+                    aria-label="search"
+                    sx={classes.searchButton}
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </Box>
+              </form>
+            </Box>
 
             <Box>
               <NextLink href="/cart" passHref>
@@ -300,6 +306,26 @@ export default function Layout({ title, description, children }) {
               )}
             </Box>
           </Toolbar>
+
+          <Box sx={isDesktop ? classes.hidden : classes.visible}>
+            <form onSubmit={submitHandler}>
+              <Box sx={classes.searchForm}>
+                <IconButton
+                  type="submit"
+                  aria-label="search"
+                  sx={classes.searchButton}
+                >
+                  <SearchIcon />
+                </IconButton>
+                <InputBase
+                  name="query"
+                  sx={classes.searchInput}
+                  placeholder="Search"
+                  onChange={queryChangeHandler}
+                />
+              </Box>
+            </form>
+          </Box>
         </AppBar>
         <Container component="main" sx={classes.main}>
           {children}

@@ -43,7 +43,7 @@ const classes = {
     display: 'none',
   },
   searchForm: {
-    border: '1px solid #ffffff',
+    border: '1px solid #000000',
     backgroundColor: '#ffffff',
     borderRadius: 1,
   },
@@ -55,12 +55,12 @@ const classes = {
     },
   },
   searchButton: {
-    backgroundColor: '#4b0096',
-    padding: 1,
-    borderRadius: '0 5px 5px 0',
-    '& span': {
-      color: '#00000',
-    },
+    paddingRight: 1,
+    color: '#6a0dad',
+  },
+
+  halfWidth: {
+    width: '90%',
   },
 };
 
