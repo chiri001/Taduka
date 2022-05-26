@@ -21,7 +21,6 @@ import {
   AppBar,
   CssBaseline,
   ThemeProvider,
-  TableCell,
   useMediaQuery,
 } from '@mui/material';
 import NextLink from 'next/link';
@@ -37,13 +36,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { ImCart } from 'react-icons/im';
-import { RiFacebookCircleFill } from 'react-icons/ri';
-import { RiInstagramFill } from 'react-icons/ri';
 import { FiUserCheck } from 'react-icons/fi';
 import { RiUserShared2Line } from 'react-icons/ri';
+import Footer from './Footer';
 
 export default function Layout({ title, description, children }) {
   const router = useRouter();
+
   const { state, dispatch } = useContext(Store);
   const { cart, userInfo } = state;
 
@@ -69,9 +68,9 @@ export default function Layout({ title, description, children }) {
       },
 
       h3: {
-        fontSize: '1.2rem',
+        fontSize: '1.1rem',
         fontWeight: 400,
-        margin: '1rem 0',
+        margin: '1rem 2',
       },
     },
     palette: {
@@ -137,6 +136,20 @@ export default function Layout({ title, description, children }) {
   }, [enqueueSnackbar]);
 
   const isDesktop = useMediaQuery('(min-width:600px)');
+
+  // const usePathname = () => {
+  //   const location = useLocation();
+  //   return location.pathname;
+  // };
+
+  // function isHome() {
+  //   if (usePathname() === '/') {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+  // const location = useLocation();
 
   const [query, setQuery] = useState('');
   const queryChangeHandler = (e) => {
@@ -217,7 +230,7 @@ export default function Layout({ title, description, children }) {
                   <InputBase
                     name="query"
                     sx={classes.searchInput}
-                    placeholder="Search"
+                    placeholder="Search Grocery"
                     onChange={queryChangeHandler}
                   />
                   <IconButton
@@ -306,10 +319,15 @@ export default function Layout({ title, description, children }) {
               )}
             </Box>
           </Toolbar>
-
           <Box sx={isDesktop ? classes.hidden : classes.visible}>
             <form onSubmit={submitHandler}>
               <Box sx={classes.searchForm}>
+                <InputBase
+                  name="query"
+                  sx={classes.searchInputMini}
+                  placeholder="Search Grocery"
+                  onChange={queryChangeHandler}
+                />
                 <IconButton
                   type="submit"
                   aria-label="search"
@@ -317,12 +335,6 @@ export default function Layout({ title, description, children }) {
                 >
                   <SearchIcon />
                 </IconButton>
-                <InputBase
-                  name="query"
-                  sx={classes.searchInput}
-                  placeholder="Search"
-                  onChange={queryChangeHandler}
-                />
               </Box>
             </form>
           </Box>
@@ -330,52 +342,7 @@ export default function Layout({ title, description, children }) {
         <Container component="main" sx={classes.main}>
           {children}
         </Container>
-        <Box backgroundColor="#D3D3D3">
-          <TableCell marginleft={3} marginright={3}>
-            <Typography variant="h3">
-              Taduka is an online ecommerce shop that allows users to order
-              groceries from the comfort of their homes and offers free shipping
-              to their doorstep. The products we have include categories such as
-              meat, dairy products, spices, and vegetables. We give you a
-              variety to choose from. You no longer have to go to the market and
-              struggle finding grocery to buy let a lone having the budden to
-              carry those items. Taduka is here for you. Order today and enjoy
-              our services
-            </Typography>
-          </TableCell>
-        </Box>
-        <Box component="footer" sx={classes.footer}>
-          <Button
-            fullWidth
-            color="primary"
-            onClick={() => {
-              router.push('/');
-            }}
-          >
-            Back to top
-          </Button>
-          <Typography variant="h3">
-            @Taduka 2022. All rights reserved
-          </Typography>
-          <Button>
-            <RiInstagramFill
-              color="#833AB4"
-              onClick={() => {
-                router.push('/');
-              }}
-              size={30}
-            />
-          </Button>
-          <Button>
-            <RiFacebookCircleFill
-              color="#4267B2"
-              onClick={() => {
-                router.push('/');
-              }}
-              size={30}
-            />
-          </Button>
-        </Box>
+        {location.pathname === '/' && <Footer />}
       </ThemeProvider>
     </>
   );

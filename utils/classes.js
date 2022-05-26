@@ -10,6 +10,11 @@ const classes = {
     fontSize: '15px',
   },
 
+  brand: {
+    fontWeight: 'bold',
+    fontSize: '1.7rem',
+  },
+
   main: {
     marginTop: 5,
     marginBottom: 5,
@@ -46,6 +51,8 @@ const classes = {
     border: '1px solid #000000',
     backgroundColor: '#ffffff',
     borderRadius: 1,
+    display: 'flex',
+    flex: 1,
   },
   searchInput: {
     paddingLeft: 1,
@@ -54,13 +61,30 @@ const classes = {
       color: '#606060',
     },
   },
+  searchInputMini: {
+    paddingLeft: 1,
+    color: '#000000',
+    '& ::placeholder': {
+      color: '#606060',
+    },
+    width: '93%',
+  },
   searchButton: {
     paddingRight: 1,
     color: '#6a0dad',
+    borderRadius: '0 5px 5px 0',
+    '& span': {
+      color: '#000000',
+    },
   },
 
-  halfWidth: {
-    width: '90%',
+  box: {
+    border: '5px solid',
+    backgroundColor: '#D3D3D3',
+    marginLeft: '3%',
+    marginRight: '3%',
+    borderRadius: 5,
+    borderColor: '#D3D3D3',
   },
 };
 
