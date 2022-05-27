@@ -39,9 +39,14 @@ import { ImCart } from 'react-icons/im';
 import { FiUserCheck } from 'react-icons/fi';
 import { RiUserShared2Line } from 'react-icons/ri';
 import Footer from './Footer';
+import { useLocation } from 'react-router-dom';
 
-export default function Layout({ title, description, children }) {
+const Layout = ({ title, description, children }) => {
   const router = useRouter();
+
+  const isHome = (props) => {
+    const location = useLocation();
+  };
 
   const { state, dispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -137,20 +142,6 @@ export default function Layout({ title, description, children }) {
 
   const isDesktop = useMediaQuery('(min-width:600px)');
 
-  // const usePathname = () => {
-  //   const location = useLocation();
-  //   return location.pathname;
-  // };
-
-  // function isHome() {
-  //   if (usePathname() === '/') {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-  // const location = useLocation();
-
   const [query, setQuery] = useState('');
   const queryChangeHandler = (e) => {
     setQuery(e.target.value);
@@ -159,6 +150,7 @@ export default function Layout({ title, description, children }) {
     e.preventDefault();
     router.push(`/search?query=${query}`);
   };
+
   return (
     <>
       <Head>
@@ -346,4 +338,6 @@ export default function Layout({ title, description, children }) {
       </ThemeProvider>
     </>
   );
-}
+};
+
+export default Layout;
