@@ -39,14 +39,9 @@ import { ImCart } from 'react-icons/im';
 import { FiUserCheck } from 'react-icons/fi';
 import { RiUserShared2Line } from 'react-icons/ri';
 import Footer from './Footer';
-import { useLocation } from 'react-router-dom';
 
 const Layout = ({ title, description, children }) => {
   const router = useRouter();
-
-  const isHome = (props) => {
-    const location = useLocation();
-  };
 
   const { state, dispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -334,7 +329,7 @@ const Layout = ({ title, description, children }) => {
         <Container component="main" sx={classes.main}>
           {children}
         </Container>
-        {location.pathname === '/' && <Footer />}
+        {router.pathname === '/' && <Footer />}
       </ThemeProvider>
     </>
   );

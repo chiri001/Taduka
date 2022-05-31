@@ -20,6 +20,7 @@ const classes = {
     marginBottom: 5,
     minHeight: '80vh',
     marginLeft: 3,
+    borderRadius: 4,
   },
   footer: {
     marginetop: 1,
